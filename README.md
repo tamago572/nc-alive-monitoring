@@ -1,6 +1,6 @@
 # nc-alive-monitoring
 
-Pythonでnetcatを実行し、疎通確認をするためのプログラム。
+PythonでNetcatとLINE Notifyを使って死活管理する
 
 ```Python
 # main.py
