@@ -33,5 +33,10 @@ if checkServerStatus("localhost", 3001) == False:
         send_line_notify("サーバーがダウンしました")
         writeText("close")
 else:
-    # 開いていた場合
-    writeText("open")
+    if readText() == "close":
+        # 復帰した場合
+        send_line_notify("サーバーが再起動しました")
+        writeText("open")
+    else:
+        # 開いていた場合
+        writeText("open")
