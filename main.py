@@ -1,5 +1,8 @@
 import subprocess
 import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 textPath = "./text.txt"
 
@@ -21,13 +24,13 @@ def checkServerStatus(address:str, port):
 
 
 def send_line_notify(notification_message):
-    line_notify_token = 'YOUR_LINE_NOTIFY_TOKEN'
+    line_notify_token = os.getenv("LINE_NOTIFY_TOKEN")
     line_notify_api = 'https://notify-api.line.me/api/notify'
     headers = {'Authorization': f'Bearer {line_notify_token}'}
     data = {'message': f'{notification_message}'}
     requests.post(line_notify_api, headers = headers, data = data)
 
-if checkServerStatus("localhost", 3001) == False:
+if checkServerStatus(os.getenv("IP"), os.getenv("PORT")) == False:
     # 閉じていた場合
     if readText() == "open":
         send_line_notify(requests.get("http://localhost:3000/downmsg").text)

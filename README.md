@@ -17,19 +17,15 @@ subprocessを使用するので、netcatはインストールしておいてく�
 if checkServerStatus("localhost", 3001) == False:
 ```
 
-`localhost`には対象のIPアドレス、`3001`には対象のポートを入力してください。
-
-```Python
-    line_notify_token = 'YOUR_LINE_NOTIFY_TOKEN'
+rootに`.env`ファイルを作成します
+```env
+LINE_NOTIFY_TOKEN={YOUR_TOKEN}
+IP=192.168.10.127
+PORT=11451
 ```
+rootの方には上記すべて、/statusServerの方にはLINE_NOTIFY_TOKENを入力します。
 
-ここにはLINE NotifyのTokenを入力してください。
-
-また、同じディレクトリにtext.txtを作成してください。
-
-さらに、そのテキストファイルに、現時点でのサーバーの状態を書き込んで保存してください。
-
-開いている状態なら`open`、閉じている状態なら`close`と入力してください。
+nodejsを実行するには`node --env-file=../.env index.js`のように.envファイルのパスを引数として渡してください
 
 ### 機能
 

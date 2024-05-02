@@ -5,6 +5,8 @@ const port = 3000
 const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database("status.db");
 
+const lineNotify = require('line-notify-nodejs')(process.env.LINE_NOTIFY_TOKEN);
+
 app.set('view engine', 'ejs');
 // リクエストボディを解析するためのミドルウェアを追加
 app.use(express.urlencoded({ extended: true }));
@@ -20,7 +22,7 @@ app.get('/', (req, res) => {
             const msgs = rows.map((row) => row.msg);
 
             const data = {
-                title: "LINE Notifyの設定",
+                title: "LINE Notifyの設定/bunbun鯖",
                 maint_msg: msgs,
             }
             res.render('index.ejs', data)
@@ -86,6 +88,21 @@ app.post('/maint_up_update', (req, res) => {
         }
     })
 
+})
+
+app.post('/notify', (req, res) => {
+    const msg = req.body.msg;
+    console.log(msg);
+
+    lineNotify.notify({
+        message: msg
+    }).then(() => {
+        console.log('send success');
+        res.redirect('/');
+    }).catch((err) => {
+        console.log(err);
+        res.send(err);
+    })
 })
 
 app.listen(port, () => {

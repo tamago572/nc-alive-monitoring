@@ -45,6 +45,14 @@
                 <!-- タブパネルの中身を書く -->
                 <h2>送信するメッセージ</h2>
                 <p>異常時に送信するメッセージを変更します。</p>
+                <form action="/hidemsg_update" method="post">
+                    <div class="mb-3">
+                        <label for="hidemsg" class="form-label">こっそりサーバーを落とす</label><br>
+                        <input type="checkbox" name="hidemsg" id="hidemsg">
+                    </div>
+                    <button type="submit" class="btn btn-primary">更新</button>
+                </form><br>
+
                 <form action="/maint_down_update" method="post">
                     <div class="mb-3">
                         <label for="message" class="form-label">ダウン時</label><br>
@@ -65,6 +73,14 @@
             <div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">
                 <!-- タブパネルの中身を書く -->
                 <h2>送信するメッセージ</h2>
+
+                <form action="/notify" method="post">
+                    <div class="mb-3">
+                        <label for="message" class="form-label">メッセージ</label><br>
+                        <textarea name="msg" id="message" cols="30" rows="3">くんかくんか</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">送信</button>
+                </form>
             </div>
 
             <div class="tab-pane fade" id="campaign" role="tabpanel" aria-labelledby="campaign-tab">
