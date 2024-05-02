@@ -7,12 +7,20 @@ const db = new sqlite3.Database("status.db");
 
 const lineNotify = require('line-notify-nodejs')(process.env.LINE_NOTIFY_TOKEN);
 
+const fs = require('fs');
+
 app.set('view engine', 'ejs');
 // リクエストボディを解析するためのミドルウェアを追加
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
+    try {
+        var status = fs.readFileSync("../text.txt", "utf-8");
+    } catch (err) {
+        console.log(err);
+        res.send(err);
+    }
     db.all("select * from msgs", (err, rows) => {
         if (err) {
             console.log(err);
@@ -24,6 +32,7 @@ app.get('/', (req, res) => {
             const data = {
                 title: "LINE Notifyの設定/bunbun鯖",
                 maint_msg: msgs,
+                status: status,
             }
             res.render('index.ejs', data)
         }
