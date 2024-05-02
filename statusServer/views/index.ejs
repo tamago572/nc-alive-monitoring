@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <%- include('cdn') %>
+</head>
+<body>
+    <div class="container">
+        <h1><%= title %></h1>
+
+        <!-- ナビアイテム定義部分 -->
+        <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+            <a href="#member" class="nav-link text-secondary" id="member-tab" data-bs-toggle="tab" role="tab" aria-controls="member" aria-selected="false">
+                現在のステータス
+            </a>
+            </li>     
+            <li class="nav-item" role="presentation">
+            <!-- ページを開いた時に表示されている部分に関してはclass="active"とaria-selected="true"が必要 -->
+            <a href="#detail" class="nav-link active text-secondary" id="detail-tab" data-bs-toggle="tab" role="tab" aria-controls="detail" aria-selected="true">
+                異常時 <!-- ここに書いたものがナビアイテムとして表示される -->
+            </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a href="#menu" class="nav-link text-secondary" id="menu-tab" data-bs-toggle="tab" role="tab" aria-controls="menu" aria-selected="false">
+                    メッセージ送信
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a href="#campaign" class="nav-link text-secondary" id="campaign-tab" data-bs-toggle="tab" role="tab" aria-controls="campaign" aria-selected="false">
+                    DB設定
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade" id="member" role="tabpanel" aria-labelledby="member-tab">
+                <!-- タブパネルの中身を書く -->
+                <h2>Open</h2>
+
+                </div>
+
+            <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
+                <!-- タブパネルの中身を書く -->
+                <h2>送信するメッセージ</h2>
+                <p>異常時に送信するメッセージを変更します。</p>
+                <form action="/maint_down_update" method="post">
+                    <div class="mb-3">
+                        <label for="message" class="form-label">ダウン時</label><br>
+                        <textarea name="dwnmsg" id="message" cols="30" rows="3"><%- maint_msg[0] %></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">更新</button>
+                </form>
+                <br>
+                <form action="/maint_up_update" method="post">
+                    <div class="mb-3">
+                        <label for="message" class="form-label">復帰時</label><br>
+                        <textarea name="upmsg" id="message" cols="30" rows="3"><%- maint_msg[1] %></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">更新</button>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                <!-- タブパネルの中身を書く -->
+                <h2>送信するメッセージ</h2>
+            </div>
+
+            <div class="tab-pane fade" id="campaign" role="tabpanel" aria-labelledby="campaign-tab">
+                <!-- タブパネルの中身を書く -->
+                <h2>メッセージの追加/削除/編集</h2>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                    DBを読み込む
+                </button>
+                <p>※未実装</p>
+            </div>
+
+    </div>
+</body>
+</html>

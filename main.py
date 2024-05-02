@@ -30,12 +30,12 @@ def send_line_notify(notification_message):
 if checkServerStatus("localhost", 3001) == False:
     # 閉じていた場合
     if readText() == "open":
-        send_line_notify("サーバーがダウンしました")
+        send_line_notify(requests.get("http://localhost:3000/downmsg").text)
         writeText("close")
 else:
     if readText() == "close":
         # 復帰した場合
-        send_line_notify("サーバーが再起動しました")
+        send_line_notify(requests.get("http://localhost:3000/upmsg").text)
         writeText("open")
     else:
         # 開いていた場合
